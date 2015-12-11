@@ -1,0 +1,80 @@
+---
+title: "Inferència estadística"
+author: "Marc Comas i Marina Vives"
+date: "15 de desembre"
+output: ioslides_presentation
+---
+
+# Paràmetres de la població
+
+## Variable numèrica
+
+Què són els paràmetres $\mu$ i $\sigma$ d'una població $P$?
+
+```{r, echo=FALSE, fig.height=2.5}
+set.seed(1)
+n = 1000
+X = rnorm(n, mean=2)
+
+p <- par(mar=c(2,2,1,1))
+plot(X, cex=0.2, ylim=c(-2, 5), xlab = '')
+legend('bottomleft', legend = c('Població'), col='black', lty =1, bty = 'n')
+par(p)
+```
+
+
+## Variable numèrica
+
+Què són els paràmetres $\mu$ i $\sigma$ d'una població $P$?
+
+```{r, echo=FALSE, fig.height=2.5}
+set.seed(1)
+n = 1000
+X = rnorm(n, mean=2)
+
+p <- par(mar=c(2,2,1,1))
+plot(X, cex=0.2, ylim=c(-2, 5), xlab = '')
+legend('bottomleft', legend = c('Població'), col='black', lty =1, bty = 'n')
+par(p)
+```
+
+\[
+\begin{array}{rcl}
+\mu &=& \frac{\sum_{x_i \in P} x_i }{ |P| } =  `r sprintf('%.2f', mean(X))` \\
+\sigma^2 &=& \frac{\sum_{x_i \in P} (x_i-\mu)^2 }{ |P| } =  `r sprintf('%.2f', var(X))`
+\end{array}
+\]
+
+## Variable numèrica
+
+Què són els paràmetres $\mu$ i $\sigma$ d'una població $P$?
+
+```{r, echo=FALSE, fig.height=2.5}
+M = mean(X)
+p <- par(mar=c(2,2,1,1))
+plot(X, cex=0.2, ylim=c(-2, 5), xlab = '')
+legend('bottomleft', legend = c('Població'), col='black', lty =1, bty = 'n')
+segments(x0 = 1:n, x1 = 1:n, y0 = M, y = X, col='blue')
+abline(h=M, col='red', lwd=3)
+par(p)
+```
+
+\[
+\begin{array}{rcl}
+\mu &=& \frac{\sum_{x_i \in P} x_i }{ |P| } =  `r sprintf('%.2f', mean(X))` \\
+\sigma^2 &=& \frac{\sum_{x_i \in P} (x_i-\mu)^2 }{ |P| } =  `r sprintf('%.2f', var(X))`
+\end{array}
+\]
+
+
+## Variable numèrica
+
+Què són els paràmetres de la població $\mu$ i $\sigma$?
+
+```{r, echo=FALSE}
+M = 3
+MSError = sum((X-M)^2) / (n-1)
+plot(X, cex=0.2, main=sprintf('Estimador: %.2f,  error mitjà %.3f', M, MSError))
+abline(h=M, col='red')
+segments(x0 = 1:n, x1 = 1:n, y0 = M, y = X, col='blue')
+```

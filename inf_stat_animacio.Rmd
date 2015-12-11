@@ -1,0 +1,58 @@
+---
+title: "Inferència estadística"
+author: "Marc Comas i Marina Vives"
+date: "15 de desembre"
+output: ioslides_presentation
+---
+
+# Paràmetres de la població
+
+## Variable numèrica
+
+Què són els paràmetres de la població $\mu$ i $\sigma$?
+
+```{r, echo=FALSE}
+n = 100
+X = rnorm(n, mean=2)
+```
+
+```{r, echo=FALSE}
+plot(X, cex=0.2, main='')
+```
+
+## Variable numèrica
+
+Què són els paràmetres de la població $\mu$ i $\sigma$?
+
+```{r, echo=FALSE}
+M = 3
+MSError = sum((X-M)^2) / (n-1)
+plot(X, cex=0.2, main=sprintf('Estimador: %.2f,  error mitjà %.3f', M, MSError))
+abline(h=M, col='red')
+segments(x0 = 1:n, x1 = 1:n, y0 = M, y = X, col='blue')
+```
+
+## Variable numèrica
+
+Què són els paràmetres de la població $\mu$ i $\sigma$?
+
+```{r, echo=FALSE}
+M = 2
+MSError = sum((X-M)^2) / (n-1)
+plot(X, cex=0.2, main=sprintf('Estimador: %.2f,  error mitjà %.3f', M, MSError))
+abline(h=M, col='red')
+segments(x0 = 1:n, x1 = 1:n, y0 = M, y = X, col='blue')
+```
+
+## Variable numèrica
+
+Què són els paràmetres de la població $\mu$ i $\sigma$?
+
+```{r, echo=FALSE}
+M = mean(X)
+MSError = sum((X-M)^2) / (n-1)
+plot(X, cex=0.2, main=sprintf('Estimador: %.2f,  error mitjà %.3f', M, MSError))
+abline(h=M, col='red')
+segments(x0 = 1:n, x1 = 1:n, y0 = M, y = X, col='blue')
+```
+

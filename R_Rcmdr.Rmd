@@ -1,0 +1,29 @@
+---
+title: "Introducció al curs"
+author: "Marc Comas i Marina Vives"
+date: "15 de desembre"
+output: ioslides_presentation
+---
+
+# R i R commander
+
+## Què són?
+
+  * Què és R?
+    * Llenguatge per l'anàlisi de dades
+    * Codi lliure
+    * Gratuït
+    * Extensible
+    
+  * Què és R-commander?
+    * Interfície amable d'R
+    * Extensible
+    
+## Enllaços
+
+  * R
+    * [https://cran.r-project.org](https://cran.r-project.org/)
+  * Rcommander
+    * [http://www.rcommander.com](http://www.rcommander.com/)
+  
+

@@ -1,0 +1,96 @@
+---
+title: "Estadística Descriptiva"
+author: "Marc Comas i Marina Vives"
+date: "15 de desembre"
+output: ioslides_presentation
+---
+
+# Conjunts de dades
+
+## `iris`: Edgar Anderson's Iris Data
+
+```{r}
+head(iris)
+```
+
+## `survey`: Student Survey Data
+
+```{r}
+data(survey, package = 'MASS')
+head(survey)
+```
+
+# Variables numèriques `Sepal.Length`
+
+## Resum gràfic: Histograma
+
+```{r}
+hist(iris[['Sepal.Length']], 
+     main = 'Histograma', xlab='Llargada sèpal')
+```
+
+## Resum gràfic: Diagrama de caixa
+
+```{r}
+boxplot(iris[['Sepal.Length']], 
+        main = 'Diagrama', ylab='Llargada sèpal')
+```
+
+## Resum gràfic
+
+```{r, echo=FALSE}
+par(mfrow=c(1,2))
+hist(iris[['Sepal.Length']], 
+     main = 'Histograma', xlab='Llargada sèpal')
+boxplot(iris[['Sepal.Length']], 
+        main = 'Diagrama caixa', ylab='Llargada sèpal')
+par(mfrow=c(1,1))
+```
+
+## Resum numèric:
+
+```{r}
+summary(iris[['Sepal.Length']])
+```
+
+```{r}
+mean(iris[['Sepal.Length']])
+```
+
+```{r}
+sd(iris[['Sepal.Length']])
+```
+
+## Resum en funció d'una categòrica 
+
+### Resum numèric
+
+```{r}
+with(iris, tapply(Sepal.Length, Species, summary))
+```
+
+### Resum gràfic
+
+## Resum en funció d'una categòrica 
+
+```{r}
+boxplot(Sepal.Length~Species, data=iris)
+```
+
+# Variables categòriques `Smoke`
+
+## Resum gràfic: Diagrama de barres
+
+```{r}
+barplot(table(survey[['Smoke']]))
+```
+
+## Resum numèric: Freqüències
+
+```{r}
+(tab <- table(survey[['Smoke']]))
+```
+
+```{r}
+prop.table(tab)
+```
