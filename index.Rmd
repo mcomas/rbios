@@ -4,18 +4,21 @@ author: "Marc Comas i Marina Vives"
 output: html_document
 ---
 
-## Material del curs
+### Material del curs
+
+#### Notes
 
   * [Resum d'Rcommander](apunts_rcmdr.pdf)
 
-## Diapositives del curs
+#### Diapositives del curs
 
   * [R i Rcommander](R_Rcmdr.html)
   * [Estadística descriptiva](desc_stat.html)
-  * [Inferència estadística](desc_stat.html)
+  * [Inferència estadística](inf_stat.html)
+  * [Contrasts d'hipotesi](contrasts.html)
   * [Models lineals i disseny d'experiments](models.html)
 
-## Altres materials
+### Altres materials
 
   * [Introducció a R ](http://www-eio.upc.es/teaching/best/R/TutorialR.pdf) per Klaus Langohr. Curs introductori d'R (castellà)
   * [Pràctiques amb R i Rcommander](doc_practicas.pdf)
