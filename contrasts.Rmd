@@ -49,20 +49,14 @@ summary(iris[['Sepal.Length']])
 t.test(iris[['Sepal.Length']], mu = 6)
 ```
 
-## Contrast de comparació de mitjanes (aparellades)
-
-És la llargada del sèpal diferent del pètal?
-
-```{r}
-t.test(iris[['Sepal.Length']], iris[['Petal.Length']], paired=T)
-```
 
 ## Contrast de comparació de mitjanes (aparellades)
 
 És la llargada del sèpal diferent del pètal?
 
-```{r}
+```{r, results='hold'}
 t.test(iris[['Sepal.Length']] - iris[['Petal.Length']], mu=0)
+# t.test(iris[['Sepal.Length']], iris[['Petal.Length']], paired=T) # Alternativament
 ```
 
 ## Contrast de comparació de mitjanes (independents)
@@ -141,15 +135,8 @@ wilcox.test(iris[['Sepal.Length']], mu = 6)
 És la llargada del sèpal diferent del pètal?
 
 ```{r}
-wilcox.test(iris[['Sepal.Length']], iris[['Petal.Length']], paired=T)
-```
-
-## Contrast de comparació de mitjanes (aparellades)
-
-És la llargada del sèpal diferent del pètal?
-
-```{r}
 wilcox.test(iris[['Sepal.Length']] - iris[['Petal.Length']], mu=0)
+# wilcox.test(iris[['Sepal.Length']], iris[['Petal.Length']], paired=T) # Alternativament
 ```
 
 ## Contrast de comparació de mitjanes (independents)
