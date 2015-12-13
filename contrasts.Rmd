@@ -1,0 +1,161 @@
+---
+title: "Contrastos"
+author: "Marc Comas i Marina Vives"
+date: "15 de desembre"
+output: 
+  ioslides_presentation: 
+    smaller: yes
+---
+
+```{r, include=F}
+data(birthwt, package='MASS')
+```
+
+# Contrast de Normalitat
+
+## Contrast de Normalitat: `Sepal.Width`
+
+```{r fig.width=4, fig.height=2, echo=F}
+p <- par(mar=c(2,2,1,1))
+hist(iris[['Sepal.Width']], main='')
+par(p)
+```
+
+```{r}
+shapiro.test(iris[['Sepal.Width']])
+```
+
+## Contrast de Normalitat: `Sepal.Length`
+
+```{r fig.width=4, fig.height=2, echo=F}
+p <- par(mar=c(2,2,1,1))
+hist(iris[['Sepal.Length']], main='')
+par(p)
+```
+
+```{r}
+shapiro.test(iris[['Sepal.Length']])
+```
+
+# Contrast de mitjanes
+
+## Contrast de mitjana: `Sepal.Length`
+
+```{r, echo=F}
+summary(iris[['Sepal.Length']])
+```
+
+```{r}
+t.test(iris[['Sepal.Length']], mu = 6)
+```
+
+## Contrast de comparació de mitjanes (aparellades)
+
+És la llargada del sèpal diferent del pètal?
+
+```{r}
+t.test(iris[['Sepal.Length']], iris[['Petal.Length']], paired=T)
+```
+
+## Contrast de comparació de mitjanes (aparellades)
+
+És la llargada del sèpal diferent del pètal?
+
+```{r}
+t.test(iris[['Sepal.Length']] - iris[['Petal.Length']], mu=0)
+```
+
+## Contrast de comparació de mitjanes (independents)
+
+És la llargada del sèpal de l'espècie setosa diferent de la versicolor
+
+```{r}
+s.seto = subset(iris, Species == 'setosa')[['Sepal.Length']]
+s.vers = subset(iris, Species == 'versicolor')[['Petal.Length']]
+t.test(s.seto, s.vers, var.equal = TRUE)
+```
+
+## Contrast de comparació de variàncies
+
+En el contrast anterior hem suposat variàncies iguals. Ho són realment?
+
+```{r}
+var.test(s.seto, s.vers)
+```
+
+## Contrast ANOVA
+
+Són les mitjanes de les llargades del sèpal iguals a les tres espècies?
+
+```{r echo=FALSE, fig.width=4, fig.height=2}
+p <- par(mar=c(2,2,1,1))
+boxplot(Petal.Width~Species, data=iris)
+par(p)
+```
+
+```{r}
+summary(aov(Sepal.Width~Species, data = iris))
+```
+
+# Contrasts de proporcions
+
+
+## Contrast de proporció
+
+Dins la població, la meitat de les dones fumen durant l'emparàs?
+
+```{r echo=FALSE, fig.width=4, fig.height=1.5}
+p <- par(mar=c(2,2,1,1))
+barplot(table(birthwt[['smoke']]))
+par(p)
+```
+
+```{r}
+prop.test(sum(birthwt[['smoke']]), length(birthwt[['smoke']]))
+```
+
+## Contrast de comparació de proporcions
+
+Dins la població, és la proporció de dones fumadores durant l'embaràs igual entre les dones amb nens de pes baix i pes normal.
+
+```{r}
+smokers = tapply(birthwt[['smoke']], birthwt[['low']], sum)
+low_n = table(birthwt[['low']])
+prop.test(smokers, low_n)
+```
+
+# Contrasts no paramètrics
+
+## Contrast de mitjana: `Sepal.Length`
+
+```{r, echo=F}
+summary(iris[['Sepal.Length']])
+```
+
+```{r}
+wilcox.test(iris[['Sepal.Length']], mu = 6)
+```
+
+## Contrast de comparació de mitjanes (aparellades)
+
+És la llargada del sèpal diferent del pètal?
+
+```{r}
+wilcox.test(iris[['Sepal.Length']], iris[['Petal.Length']], paired=T)
+```
+
+## Contrast de comparació de mitjanes (aparellades)
+
+És la llargada del sèpal diferent del pètal?
+
+```{r}
+wilcox.test(iris[['Sepal.Length']] - iris[['Petal.Length']], mu=0)
+```
+
+## Contrast de comparació de mitjanes (independents)
+
+És la llargada del sèpal de l'espècie setosa diferent de la versicolor
+
+```{r}
+wilcox.test(s.seto, s.vers)
+```

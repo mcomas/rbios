@@ -1,0 +1,38 @@
+---
+title: "Models Lineals"
+author: "Marc Comas i Marina Vives"
+date: "16 de desembre"
+output: 
+  ioslides_presentation: 
+    smaller: yes
+---
+
+```{r, include=F}
+data(birthwt, package='MASS')
+```
+
+# Models lineals
+
+## El pes de la mare explica el del nadó?
+
+```{r, fig.width=8, fig.height=4, echo=F}
+SSError = function(resid, df){
+  sum( (resid-mean(resid))^2 ) / df
+}
+par(mfrow=c(1,2))
+plot(lwt~bwt, data = birthwt, cex=0.2, main=sprintf('MSError=%.2f', var(birthwt$lwt)),
+     xlab = '', ylab = 'Pes nadó')
+segments(x0 = birthwt[['bwt']], x1 = birthwt[['bwt']], 
+         y0 = mean(birthwt[['lwt']]), y = birthwt[['lwt']], col='blue')
+abline(h=mean(birthwt[['lwt']]), col='red')
+
+m<-lm(lwt~bwt, data = birthwt)
+plot(lwt~bwt, data = birthwt, cex=0.2, main=sprintf('MSError=%.2f', SSError(m$residuals, m$df.residual)),
+     xlab = 'Pes mare', ylab = 'Pes nadó')
+segments(x0 = birthwt[['bwt']], x1 = birthwt[['bwt']], 
+         y0 = predict(m), y = birthwt[['lwt']], col='blue')
+abline(m, col='red')
+par(mfrow=c(1,1))
+```
+
+# Disseny d'experiments

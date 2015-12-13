@@ -5,7 +5,7 @@ date: "15 de desembre"
 output: ioslides_presentation
 ---
 
-# Paràmetres de la població
+# Paràmetres de la població - estadístics d'una mostra
 
 ## Variable numèrica
 
@@ -13,12 +13,12 @@ Què són els paràmetres $\mu$ i $\sigma$ d'una població $P$?
 
 ```{r, echo=FALSE, fig.height=2.5}
 set.seed(1)
-n = 1000
-X = rnorm(n, mean=2)
+N = 1000
+X = rnorm(N, mean=2)
 
 p <- par(mar=c(2,2,1,1))
 plot(X, cex=0.2, ylim=c(-2, 5), xlab = '')
-legend('bottomleft', legend = c('Població'), col='black', lty =1, bty = 'n')
+legend('bottomleft', legend = c('Població'), col=c('black'), bty = 'n', pch=20)
 par(p)
 ```
 
@@ -28,21 +28,14 @@ par(p)
 Què són els paràmetres $\mu$ i $\sigma$ d'una població $P$?
 
 ```{r, echo=FALSE, fig.height=2.5}
-set.seed(1)
-n = 1000
-X = rnorm(n, mean=2)
-
 p <- par(mar=c(2,2,1,1))
 plot(X, cex=0.2, ylim=c(-2, 5), xlab = '')
-legend('bottomleft', legend = c('Població'), col='black', lty =1, bty = 'n')
+legend('bottomleft', legend = c('Població'), col=c('black'), bty = 'n', pch=20)
 par(p)
 ```
 
 \[
-\begin{array}{rcl}
-\mu &=& \frac{\sum_{x_i \in P} x_i }{ |P| } =  `r sprintf('%.2f', mean(X))` \\
-\sigma^2 &=& \frac{\sum_{x_i \in P} (x_i-\mu)^2 }{ |P| } =  `r sprintf('%.2f', var(X))`
-\end{array}
+\mu = \frac{\sum_{x_i \in P} x_i }{ |P| } =  `r sprintf('%.2f', mean(X))`      ;\;\;\;   \sigma^2 = \frac{\sum_{x_i \in P} (x_i-\mu)^2 }{ |P| } =  `r sprintf('%.2f', var(X) * (N-1) / N)`
 \]
 
 ## Variable numèrica
@@ -53,28 +46,179 @@ Què són els paràmetres $\mu$ i $\sigma$ d'una població $P$?
 M = mean(X)
 p <- par(mar=c(2,2,1,1))
 plot(X, cex=0.2, ylim=c(-2, 5), xlab = '')
-legend('bottomleft', legend = c('Població'), col='black', lty =1, bty = 'n')
-segments(x0 = 1:n, x1 = 1:n, y0 = M, y = X, col='blue')
+legend('bottomleft', legend = c('Població'), col=c('black'), bty = 'n', pch=20)
+segments(x0 = 1:N, x1 = 1:N, y0 = M, y = X, col='blue')
 abline(h=M, col='red', lwd=3)
 par(p)
 ```
 
 \[
-\begin{array}{rcl}
-\mu &=& \frac{\sum_{x_i \in P} x_i }{ |P| } =  `r sprintf('%.2f', mean(X))` \\
-\sigma^2 &=& \frac{\sum_{x_i \in P} (x_i-\mu)^2 }{ |P| } =  `r sprintf('%.2f', var(X))`
-\end{array}
+\mu = \frac{\sum_{x_i \in P} x_i }{ |P| } =  `r sprintf('%.2f', mean(X))`      ;\;\;\;   \sigma^2 = \frac{\sum_{x_i \in P} (x_i-\mu)^2 }{ |P| } =  `r sprintf('%.2f', var(X) * (N-1) / N)`
+\]
+
+## Variable numèrica
+
+Ja coneixem els paràmetres $\mu = `r sprintf('%.2f', mean(X))`$ i $\sigma = \sqrt{`r sprintf('%.2f', var(X))`}$ d'una població $P$. I si no disposem de tota la població?
+
+```{r, echo=FALSE, fig.height=2.5}
+p <- par(mar=c(2,2,1,1))
+plot(X, cex=0.2, ylim=c(-2, 5), xlab = '')
+legend('bottomleft', legend = c('Població'), col=c('black'), bty = 'n', pch=20)
+par(p)
+```
+
+## Variable numèrica
+
+Ja coneixem els paràmetres $\mu = `r sprintf('%.2f', mean(X))`$ i $\sigma = \sqrt{`r sprintf('%.2f', var(X))`}$ d'una població $P$. I si no disposem de tota la població?
+
+```{r, echo=FALSE, fig.height=2.5}
+n = 20
+sam = sample(1:N, n)
+color = rep('grey', N)
+color[sam] = 'blue'
+cexs = rep(0.4, N)
+cexs[sam] = 0.8
+p <- par(mar=c(2,2,1,1))
+plot(X, cex=cexs, pch=20, ylim=c(-2, 5), xlab = '', col=color)
+legend('bottomleft', legend = c('Població', 'Mostra'), col=c('grey', 'blue'), bty = 'n', pch=20)
+par(p)
+```
+
+## Variable numèrica
+
+Ja coneixem els paràmetres $\mu = `r sprintf('%.2f', mean(X))`$ i $\sigma = \sqrt{`r sprintf('%.2f', var(X))`}$ d'una població $P$. I si no disposem de tota la població?
+
+```{r, echo=FALSE, fig.height=2.5}
+n = 20
+sam = sample(1:N, n)
+color = rep('grey', N)
+color[sam] = 'blue'
+cexs = rep(0.4, N)
+cexs[sam] = 0.8
+xM = mean(X[sam])
+p <- par(mar=c(2,2,1,1))
+plot(X, cex=cexs, pch=20, ylim=c(-2, 5), xlab = '', col=color)
+legend('bottomleft', legend = c('Població', 'Mostra'), col=c('grey', 'blue'), bty = 'n', pch=20)
+segments(x0 = sam, x1 = sam, y0 = xM, y = X[sam], col='blue')
+abline(h=xM, col='red', lwd=3)
+par(p)
+```
+
+\[
+\bar{x} = \frac{\sum_{i=1}^n x_i }{ n } =  `r sprintf('%.2f', mean(X[sam]))`   ;\;\;\; s^2 = \frac{\sum_{i=1}^n (x_i-\mu)^2 }{ n } =  `r sprintf('%.2f', var(X[sam]))`
 \]
 
 
 ## Variable numèrica
 
-Què són els paràmetres de la població $\mu$ i $\sigma$?
+  * Paràmetres de la població:
+  
+\[
+\mu = \frac{\sum_{x_i \in P} x_i }{ |P| } =  `r sprintf('%.2f', mean(X))`      ;\;\;\;   \sigma^2 = \frac{\sum_{x_i \in P} (x_i-\mu)^2 }{ |P| } =  `r sprintf('%.2f', var(X))`
+\]
 
-```{r, echo=FALSE}
-M = 3
-MSError = sum((X-M)^2) / (n-1)
-plot(X, cex=0.2, main=sprintf('Estimador: %.2f,  error mitjà %.3f', M, MSError))
-abline(h=M, col='red')
-segments(x0 = 1:n, x1 = 1:n, y0 = M, y = X, col='blue')
+  * Estadístics d'una mostra:
+
+\[
+\bar{x} = \frac{\sum_{i=1}^n x_i }{ n } =  `r sprintf('%.2f', mean(X[sam]))`   ;\;\;\; s^2 = \frac{\sum_{i=1}^n (x_i-\mu)^2 }{ n } =  `r sprintf('%.2f', var(X[sam]))`
+\]
+
+## Variable categòrica
+
+I si tenim una variable binària? Quins són els paràmetres?
+
+```{r, echo=FALSE, fig.height=2.5}
+set.seed(1)
+N = 1000
+X = rbinom(N, size=1, p = 0.35)
+M = mean(X)
+p <- par(mar=c(2,2,1,1))
+plot(X, cex=0.2, ylim=c(-0.5, 1.1), xlab = '')
+legend('bottomleft', legend = c('Població'), col='black', lty =1, bty = 'n')
+par(p)
 ```
+
+## Variable categòrica
+
+I si tenim una variable binària? Quins són els paràmetres?
+
+```{r, echo=FALSE, fig.height=2.5}
+X = sort(X)
+p <- par(mar=c(2,2,1,1))
+plot(X, cex=0.2, ylim=c(-0.5, 1.1), xlab = '')
+legend('bottomleft', legend = c('Població'), col='black', lty =1, bty = 'n')
+par(p)
+```
+
+## Variable categòrica
+
+I si tenim una variable binària? Quins són els paràmetres?
+
+```{r, echo=FALSE, fig.height=2.5}
+p <- par(mar=c(2,2,1,1))
+plot(X, cex=0.2, ylim=c(-0.5, 1.1), xlab = '')
+legend('bottomleft', legend = c('Població'), col='black', lty =1, bty = 'n')
+segments(x0 = 1:N, x1 = 1:N, y0 = M, y = X, col='blue')
+abline(h=M, col='red', lwd=3)
+par(p)
+```
+
+\[
+\mu = \frac{\sum_{x_i \in P} x_i }{ |P| } =  `r sprintf('%.2f', mean(X))`      ;\;\;\;   \sigma^2 = \frac{\sum_{x_i \in P} (x_i-\mu)^2 }{ |P| } =  `r sprintf('%.4f', var(X) * (N-1) / N)`
+\]
+
+\[
+\sigma^2  = \mu \times (1-\mu) ;\;\;\; \left[`r sprintf('%.4f', var(X) * (N-1) / N)` = `r sprintf('%.2f', mean(X))` \times (1 - `r sprintf('%.2f', mean(X))` ) \right]
+\]
+
+## Variable categòrica
+
+I si tenim una variable binària? Quins són els paràmetres? Només parlem del paràmetre proporció poblacional $p$ ($p = \mu$)
+
+
+\[
+p = \frac{\sum_{x_i \in P} x_i }{ |P| } =  `r sprintf('%.2f', mean(X))`
+\]
+
+
+Si partim d'una mostra ($n = `r n`$ amb $m = `r (m <- sum(rbinom(n, size=1, M)))`$), enlloc de la proporció poblacional obtindrem una proporció mostral
+
+\[
+\hat{p} = \frac{\sum_{i=1}^n x_i }{ `r n` } = \frac{`r m`}{`r n`} = `r sprintf('%.2f', m/n)`
+\]
+
+
+# Què és un contrast?
+
+## Contrast d'hipotesi
+
+### Objectiu d'un contrast
+
+  * Prendre decisions sobre una certa pregunta feta sobre una població a partir d'una mostra
+  
+### Forma d'un contrast
+
+\[
+\begin{array}{rl}
+H_0: &  \text{Hipotesi inicial}\\
+H_1: &  \text{no } H_0
+\end{array}
+\]
+
+## Tipus de contrast d'hipotesi
+
+### Variables numèriques
+
+  * __Contrast de mitjana__: $H_0: \mu = \text{constant}$ 
+  * __Contrast de compració de mitjanes__: $H_0: \mu_a = \mu_b$
+  * __Contrast de normalitat__: $H_0: \text{P és normal}$
+  * __Contrast de compració de variàncies__: $H_0: \sigma_a^2 = \sigma_b^2$
+  * __Contrast ANOVA__: $H_0: \mu_1 = \mu_2 = \dots = \mu_k$
+
+### Variables categòriques
+
+  * __Contrast de proporció__: $H_0: p = \text{constant}$
+  * __Contrast de comparació de proporcions__: $H_0: p_a = p_b$
+  * __Contrast d'independència__: $H_0: \text{ Dues variables són independents}$
+  
+  

@@ -13,11 +13,11 @@ output: ioslides_presentation
 head(iris)
 ```
 
-## `survey`: Student Survey Data
+## `birthwt`: Risk Factors Associated with Low Infant Birth Weight
 
 ```{r}
-data(survey, package = 'MASS')
-head(survey)
+data(birthwt, package = 'MASS')
+head(birthwt)
 ```
 
 # Variables numèriques `Sepal.Length`
@@ -28,6 +28,7 @@ head(survey)
 hist(iris[['Sepal.Length']], 
      main = 'Histograma', xlab='Llargada sèpal')
 ```
+
 
 ## Resum gràfic: Diagrama de caixa
 
@@ -69,26 +70,26 @@ sd(iris[['Sepal.Length']])
 with(iris, tapply(Sepal.Length, Species, summary))
 ```
 
-### Resum gràfic
-
 ## Resum en funció d'una categòrica 
+
+### Resum gràfic
 
 ```{r}
 boxplot(Sepal.Length~Species, data=iris)
 ```
 
-# Variables categòriques `Smoke`
+# Variables categòriques `smoke`
 
 ## Resum gràfic: Diagrama de barres
 
 ```{r}
-barplot(table(survey[['Smoke']]))
+barplot(table(birthwt[['smoke']]))
 ```
 
 ## Resum numèric: Freqüències
 
 ```{r}
-(tab <- table(survey[['Smoke']]))
+(tab <- table(birthwt[['smoke']]))
 ```
 
 ```{r}
