@@ -6,7 +6,7 @@ output: html_document
 
 ## Material del curs
 
-  * [Resum d'Rcommander](doc_practicas.pdf)
+  * [Resum d'Rcommander](apunts_rcmdr.pdf)
 
 ## Diapositives del curs
 
