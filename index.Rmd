@@ -1,0 +1,13 @@
+---
+title: "Curs d’R i Rcommander"
+author: "Marc Comas i Marina Vives"
+output: html_document
+---
+
+## Diapositives del curs
+
+  * [R i Rcommander](R_Rcmdr.html)
+  * [Estadística descriptiva](desc_stat.html)
+  * [Inferència estadística](desc_stat.html)
+  * [Models lineals i disseny d'experiments](models.html)
+  
