@@ -23,6 +23,11 @@ library(RcmdrPlugin.DoE)
 ```
 
   * Disseny 2^k (k=3)
+  
+```{r, include=FALSE}
+vr = c(10.03,10.30,10.70,11.37,8.68,9.08,9.60,9.91)
+```
+
 ```{r, include=FALSE, message=FALSE}
 Design.1 <- fac.design(nfactors= 3 ,replications= 1 ,repeat.only= FALSE ,
   blocks= 1 ,randomize= FALSE ,seed= 30559 ,nlevels=c( 2,2,2 ), 
@@ -30,10 +35,12 @@ Design.1 <- fac.design(nfactors= 3 ,replications= 1 ,repeat.only= FALSE ,
 Design.1 <- add.response(Design.1,vr, replace=FALSE)
 LinearModel.1 <- lm(vr ~ (A + B + C), data=Design.1)
 ```
+
 Resposta
+
+```{r, eval=FALSE}
 vr = c(10.03,10.30,10.70,11.37,8.68,9.08,9.60,9.91)
-
-
+```
 
 ## Gràfics bàsics de diagnòstic
 
@@ -46,4 +53,5 @@ par(mfrow=c(1,1))
 ```
 
 ## Central composite designs
+
 Response surface analysis
