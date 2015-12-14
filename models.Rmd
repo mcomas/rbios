@@ -13,93 +13,127 @@ data(birthwt, package='MASS')
 
 # Models lineals
 
-## El pes de la mare explica el del nadó?
+## Què explica el pes del nadó?
 
 ```{r, fig.width=8, fig.height=4, echo=F}
 SSError = function(resid, df){
   sum( (resid-mean(resid))^2 ) / df
 }
 par(mfrow=c(1,2))
-plot(lwt~1, data = birthwt, pch=20, main=sprintf('MSError=%.2f', var(birthwt$lwt)),
-     xlab = '', ylab = 'Pes nadó')
+plot(bwt~1, data = birthwt, pch=20, main=sprintf('MSError=%.2f', var(birthwt$bwt)),
+     xlab = '', ylab = 'Pes nadó (bwt [grams])')
 segments(x0 = 1:NROW(birthwt), x1 = 1:NROW(birthwt), 
-         y0 = mean(birthwt[['lwt']]), y = birthwt[['lwt']], col='blue')
-abline(h=mean(birthwt[['lwt']]), col='red')
+         y0 = mean(birthwt[['bwt']]), y = birthwt[['bwt']], col='blue')
+abline(h=mean(birthwt[['bwt']]), col='red')
 
 
 par(mfrow=c(1,1))
 ```
 
-## El pes de la mare explica el del nadó?
+## La raça de la mare explica el del nadó?
 
 ```{r, fig.width=8, fig.height=4, echo=F}
 par(mfrow=c(1,2))
-plot(lwt~1, data = birthwt, pch=20, main=sprintf('MSError=%.2f', var(birthwt$lwt)),
-     xlab = '', ylab = 'Pes nadó')
+plot(bwt~1, data = birthwt, pch=20, main=sprintf('MSError=%.2f', var(birthwt$bwt)),
+     xlab = '', ylab = 'Pes nadó (bwt [grams])')
 segments(x0 = 1:NROW(birthwt), x1 = 1:NROW(birthwt), 
-         y0 = mean(birthwt[['lwt']]), y = birthwt[['lwt']], col='blue')
-abline(h=mean(birthwt[['lwt']]), col='red')
+         y0 = mean(birthwt[['bwt']]), y = birthwt[['bwt']], col='blue')
+abline(h=mean(birthwt[['bwt']]), col='red')
 
-m<-lm(lwt~as.factor(race), data = birthwt)
-plot(lwt~1, data = birthwt, pch=20, main=sprintf('MSError=%.2f', SSError(m$residuals, m$df.residual)),
-     xlab = 'Pes mare', ylab = 'Pes nadó', col=race)
-abline(h = mean(birthwt$lwt[birthwt$race == 1]), col=1)
-abline(h = mean(birthwt$lwt[birthwt$race == 2]), col=2)
-abline(h = mean(birthwt$lwt[birthwt$race == 3]), col=3)
+m<-lm(bwt~as.factor(race), data = birthwt)
+plot(bwt~1, data = birthwt, pch=20, main=sprintf('MSError=%.2f', SSError(m$residuals, m$df.residual)),
+     xlab = 'Raça (race)', ylab = 'Pes nadó (bwt [grams])', col=race)
+abline(h = mean(birthwt$bwt[birthwt$race == 1]), col=1)
+abline(h = mean(birthwt$bwt[birthwt$race == 2]), col=2)
+abline(h = mean(birthwt$bwt[birthwt$race == 3]), col=3)
 segments(x0 = 1:NROW(birthwt), x1 = 1:NROW(birthwt), 
-         y0 = predict(m), y = birthwt[['lwt']], col=birthwt$race)
+         y0 = predict(m), y = birthwt[['bwt']], col=birthwt$race)
+legend('bottomleft', legend=c('white','black','other'), pch=20, lty=1, col=1:3, bty='n')
 par(mfrow=c(1,1))
 ```
 
-  * ANOVA
+  * ANOVA: `bwt~race`
   
-## El pes de la mare explica el del nadó?
+## La raça de la mare explica el del nadó?
 
 ```{r, fig.width=8, fig.height=4, echo=F}
 birthwt_ord = birthwt[order(birthwt$race),]
 par(mfrow=c(1,2))
-plot(lwt~1, data = birthwt_ord, pch=20, main=sprintf('MSError=%.2f', var(birthwt_ord$lwt)),
-     xlab = '', ylab = 'Pes nadó')
+plot(bwt~1, data = birthwt_ord, pch=20, main=sprintf('MSError=%.2f', var(birthwt_ord$bwt)),
+     xlab = '', ylab = 'Pes nadó (bwt [grams])')
 segments(x0 = 1:NROW(birthwt_ord), x1 = 1:NROW(birthwt_ord), 
-         y0 = mean(birthwt_ord[['lwt']]), y = birthwt_ord[['lwt']], col='blue')
-abline(h=mean(birthwt_ord[['lwt']]), col='red')
+         y0 = mean(birthwt_ord[['bwt']]), y = birthwt_ord[['bwt']], col='blue')
+abline(h=mean(birthwt_ord[['bwt']]), col='red')
 
-m<-lm(lwt~as.factor(race), data = birthwt_ord)
-plot(lwt~1, data = birthwt_ord, pch=20, main=sprintf('MSError=%.2f', SSError(m$residuals, m$df.residual)),
-     xlab = 'Pes mare', ylab = 'Pes nadó', col=race)
-segments(y0 = mean(birthwt_ord$lwt[birthwt_ord$race == 1]), y = mean(birthwt_ord$lwt[birthwt_ord$race == 1]),
+m<-lm(bwt~as.factor(race), data = birthwt_ord)
+plot(bwt~1, data = birthwt_ord, pch=20, main=sprintf('MSError=%.2f', SSError(m$residuals, m$df.residual)),
+     xlab = 'Raça (race)', ylab = 'Pes nadó (bwt [grams])', col=race)
+segments(y0 = mean(birthwt_ord$bwt[birthwt_ord$race == 1]), y = mean(birthwt_ord$bwt[birthwt_ord$race == 1]),
          x0 = min(which(birthwt_ord$race == 1)), x = max(which(birthwt_ord$race == 1)), col=1)
-segments(y0 = mean(birthwt_ord$lwt[birthwt_ord$race == 2]), y = mean(birthwt_ord$lwt[birthwt_ord$race == 2]),
+segments(y0 = mean(birthwt_ord$bwt[birthwt_ord$race == 2]), y = mean(birthwt_ord$bwt[birthwt_ord$race == 2]),
          x0 = min(which(birthwt_ord$race == 2)), x = max(which(birthwt_ord$race == 2)), col=2)
-segments(y0 = mean(birthwt_ord$lwt[birthwt_ord$race == 3]), y = mean(birthwt_ord$lwt[birthwt_ord$race == 3]),
+segments(y0 = mean(birthwt_ord$bwt[birthwt_ord$race == 3]), y = mean(birthwt_ord$bwt[birthwt_ord$race == 3]),
          x0 = min(which(birthwt_ord$race == 3)), x = max(which(birthwt_ord$race == 3)), col=3)
 segments(x0 = 1:NROW(birthwt_ord), x1 = 1:NROW(birthwt_ord), 
-         y0 = predict(m), y = birthwt_ord[['lwt']], col=birthwt_ord$race)
+         y0 = predict(m), y = birthwt_ord[['bwt']], col=birthwt_ord$race)
+legend('bottomleft', legend=c('white','black','other'), pch=20, lty=1, col=1:3, bty='n')
 par(mfrow=c(1,1))
 ```
 
-  * ANOVA
+  * ANOVA: `bwt~race`
   
 ## El pes de la mare explica el del nadó?
 
 ```{r, fig.width=8, fig.height=4, echo=F}
-SSError = function(resid, df){
-  sum( (resid-mean(resid))^2 ) / df
-}
-par(mfrow=c(1,2))
-plot(lwt~bwt, data = birthwt, cex=0.2, main=sprintf('MSError=%.2f', var(birthwt$lwt)),
-     xlab = '', ylab = 'Pes nadó')
-segments(x0 = birthwt[['bwt']], x1 = birthwt[['bwt']], 
-         y0 = mean(birthwt[['lwt']]), y = birthwt[['lwt']], col='blue')
-abline(h=mean(birthwt[['lwt']]), col='red')
 
-m<-lm(lwt~bwt, data = birthwt)
-plot(lwt~bwt, data = birthwt, cex=0.2, main=sprintf('MSError=%.2f', SSError(m$residuals, m$df.residual)),
-     xlab = 'Pes mare', ylab = 'Pes nadó')
-segments(x0 = birthwt[['bwt']], x1 = birthwt[['bwt']], 
-         y0 = predict(m), y = birthwt[['lwt']], col='blue')
+par(mfrow=c(1,2))
+plot(bwt~lwt, data = birthwt, pch=20, main=sprintf('MSError=%.2f', var(birthwt$bwt)),
+     xlab = '', ylab = 'Pes nadó (bwt [grams])')
+segments(x0 = birthwt[['lwt']], x1 = birthwt[['lwt']], 
+         y0 = mean(birthwt[['bwt']]), y = birthwt[['bwt']], col='blue')
+abline(h=mean(birthwt[['bwt']]), col='red')
+
+m<-lm(bwt~lwt, data = birthwt)
+plot(bwt~lwt, data = birthwt, pch=20, main=sprintf('MSError=%.2f', SSError(m$residuals, m$df.residual)),
+     xlab = 'Pes mare (lwt [pounds])', ylab = 'Pes nadó (bwt [grams])')
+segments(x0 = birthwt[['lwt']], x1 = birthwt[['lwt']], 
+         y0 = predict(m), y = birthwt[['bwt']], col='blue')
 abline(m, col='red')
 par(mfrow=c(1,1))
 ```
 
-# Disseny d'experiments
+  * `bwt~lwt`
+
+## El pes de la mare  i la raça junts?
+
+```{r, fig.width=8, fig.height=4, echo=F}
+
+m<-lm(bwt~lwt+as.factor(race), data = birthwt)
+plot(bwt~lwt, data = birthwt, pch=20, col=birthwt$race, main=sprintf('MSError=%.2f', SSError(m$residuals, m$df.residual)),
+     xlab = 'Pes mare (lwt [pounds])', ylab = 'Pes nadó (bwt [grams])')
+segments(x0 = birthwt[['lwt']], x1 = birthwt[['lwt']], 
+         y0 = predict(m), y = birthwt[['bwt']], col=birthwt$race)
+abline(a = coefficients(m)[1], b = coefficients(m)[2], col=1)
+abline(a = coefficients(m)[1] + coefficients(m)[3], b = coefficients(m)[2], col=2)
+abline(a = coefficients(m)[1] + coefficients(m)[4], b = coefficients(m)[2], col=3)
+legend('bottomright', legend=c('white','black','other'), pch=20, lty=1, col=1:3, bty='n')
+```
+
+  * `bwt~lwt+race`
+
+## El pes de la mare i la raça junts?
+
+```{r, fig.width=8, fig.height=4, echo=F}
+m<-lm(bwt~lwt+as.factor(race)+lwt:as.factor(race), data = birthwt)
+plot(bwt~lwt, data = birthwt, pch=20, col=birthwt$race, main=sprintf('MSError=%.2f', SSError(m$residuals, m$df.residual)),
+     xlab = 'Pes mare (lwt [pounds])', ylab = 'Pes nadó (bwt [grams])')
+segments(x0 = birthwt[['lwt']], x1 = birthwt[['lwt']], 
+         y0 = predict(m), y = birthwt[['bwt']], col=birthwt$race)
+cf = coefficients(m)
+abline(a = cf[1], b = cf[2], col=1)
+abline(a = cf[1] + cf[3], b = cf[2] + cf[5], col=2)
+abline(a = cf[1] + cf[4], b =  cf[2] + cf[6], col=3)
+legend('bottomright', legend=c('white','black','other'), pch=20, lty=1, col=1:3, bty='n')
+```
+
+  * `bwt~lwt+race+lwt:race`
