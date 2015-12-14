@@ -42,7 +42,7 @@ abline(h=mean(birthwt[['bwt']]), col='red')
 
 m<-lm(bwt~as.factor(race), data = birthwt)
 plot(bwt~1, data = birthwt, pch=20, main=sprintf('MSError=%.2f', SSError(m$residuals, m$df.residual)),
-     xlab = 'Raça (race)', ylab = 'Pes nadó (bwt [grams])', col=race)
+     xlab = '', ylab = 'Pes nadó (bwt [grams])', col=race)
 abline(h = mean(birthwt$bwt[birthwt$race == 1]), col=1)
 abline(h = mean(birthwt$bwt[birthwt$race == 2]), col=2)
 abline(h = mean(birthwt$bwt[birthwt$race == 3]), col=3)
@@ -67,7 +67,7 @@ abline(h=mean(birthwt_ord[['bwt']]), col='red')
 
 m<-lm(bwt~as.factor(race), data = birthwt_ord)
 plot(bwt~1, data = birthwt_ord, pch=20, main=sprintf('MSError=%.2f', SSError(m$residuals, m$df.residual)),
-     xlab = 'Raça (race)', ylab = 'Pes nadó (bwt [grams])', col=race)
+     xlab = '', ylab = 'Pes nadó (bwt [grams])', col=race)
 segments(y0 = mean(birthwt_ord$bwt[birthwt_ord$race == 1]), y = mean(birthwt_ord$bwt[birthwt_ord$race == 1]),
          x0 = min(which(birthwt_ord$race == 1)), x = max(which(birthwt_ord$race == 1)), col=1)
 segments(y0 = mean(birthwt_ord$bwt[birthwt_ord$race == 2]), y = mean(birthwt_ord$bwt[birthwt_ord$race == 2]),
