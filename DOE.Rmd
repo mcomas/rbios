@@ -1,0 +1,42 @@
+---
+title: "Disseny d'experiments"
+author: "Marc Comas i Marina Vives"
+date: "16 de desembre"
+output: 
+  ioslides_presentation: 
+    smaller: yes
+---
+
+```{r}
+data(birthwt, package='MASS')
+```
+
+# Dissenys factorials
+
+## Creació disseny factorial
+
+###install.packages("RcmdrPlugin.DoE")
+```{r, echo=FALSE}
+library(RcmdrPlugin.DoE)
+```
+
+```{r}
+Design.1 <- fac.design(nfactors= 3 ,replications= 1 ,repeat.only= FALSE ,
+  blocks= 1 ,randomize= FALSE ,seed= 30559 ,nlevels=c( 2,2,2 ), 
+  factor.names=list( A=c(-1,1),B=c(-1,1),C=c(-1,1) ) )
+```
+
+```{r}
+vr = c(10.03,10.30,10.70,11.37,8.68,9.08, 9.60,9.91)
+```
+
+```{r, echo=FALSE}
+Design.1 <- add.response(Design.1,vr, replace=FALSE)
+LinearModel.1 <- lm(vr ~ (A + B + C), data=Design.1)
+```
+
+## Gràfics bàsics de diagnòstic
+###Els residus han de ser independents, homocedàstics i normals
+```{r}
+plot(LinearModel.1)
+```
