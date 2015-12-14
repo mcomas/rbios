@@ -16,7 +16,8 @@ output: html_document
   * [Estadística descriptiva](desc_stat.html)
   * [Inferència estadística](inf_stat.html)
   * [Contrasts d'hipotesi](contrasts.html)
-  * [Models lineals i disseny d'experiments](models.html)
+  * [Models lineals](models.html)
+  * [Disseny d'experiments](DOE.html)
 
 ### Altres materials
 

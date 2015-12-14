@@ -7,7 +7,7 @@ output:
     smaller: yes
 ---
 
-```{r}
+```{r, echo=FALSE}
 data(birthwt, package='MASS')
 ```
 
@@ -15,28 +15,32 @@ data(birthwt, package='MASS')
 
 ## Creació disseny factorial
 
-###install.packages("RcmdrPlugin.DoE")
-```{r, echo=FALSE}
+  * Necessitarem el plugin per Rcommander `RcmdrPlugin.DoE`
+  
+```{r, message=FALSE}
+# install.packages("RcmdrPlugin.DoE")
 library(RcmdrPlugin.DoE)
 ```
 
-```{r}
+```{r, include=FALSE, message=FALSE}
 Design.1 <- fac.design(nfactors= 3 ,replications= 1 ,repeat.only= FALSE ,
   blocks= 1 ,randomize= FALSE ,seed= 30559 ,nlevels=c( 2,2,2 ), 
   factor.names=list( A=c(-1,1),B=c(-1,1),C=c(-1,1) ) )
-```
 
-```{r}
-vr = c(10.03,10.30,10.70,11.37,8.68,9.08, 9.60,9.91)
-```
+vr = c(10.03,10.30,10.70,11.37,8.68,9.08,9.60,9.91)
 
-```{r, echo=FALSE}
 Design.1 <- add.response(Design.1,vr, replace=FALSE)
 LinearModel.1 <- lm(vr ~ (A + B + C), data=Design.1)
 ```
 
 ## Gràfics bàsics de diagnòstic
-###Els residus han de ser independents, homocedàstics i normals
-```{r}
+
+
+
+Els residus han de ser independents, homocedàstics i normals
+
+```{r, fig.width=7.5, fig.height=5, echo=FALSE}
+par(mfrow=c(2,2))
 plot(LinearModel.1)
+par(mfrow=c(1,1))
 ```
